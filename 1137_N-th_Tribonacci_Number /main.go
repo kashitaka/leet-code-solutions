@@ -1,4 +1,4 @@
-package _137_N_th_Tribonacci_Number_
+package _137_N_th_Tribonacci_Number
 
 func tribonacci(n int) int {
 	resMap := make(map[int]int)
@@ -8,7 +8,7 @@ func tribonacci(n int) int {
 	if n <= 2 {
 		return resMap[n]
 	}
-	for i:=3; i <=n; i++ {
+	for i := 3; i <= n; i++ {
 		resMap[i] = resMap[i-3] + resMap[i-2] + resMap[i-1]
 	}
 	return resMap[n]
