@@ -1,28 +1,27 @@
-package _39_word_break
+package _139_word_break
 
-// [leet, code]
-//   l e e t c o d e
-// 0 1 2 3 4 5 6 7 8
-// T F F F T F F F T
-// dp[i] = dp[i - len(word)]
-// dp[8] = dp[8 - len("code")] = dp[8-4] = dp[4] = true
-
+// For a given s with length n,
+// let dp be an array with size n + 1
+// dp[i] is the solution of subproblem s[0:i]
+// dp[0] is true, since s[0:0] = "" is valid.
+// dp[n+1] contains the solution of the problem,
+// as s[0:n+1] = s itself.
+// Assume length of wordDict is m
+// the running time is O(nm), in n iterations, check all m words.
 func wordBreak(s string, wordDict []string) bool {
-	// dp[i] shows if the substring[i:] can break with wordDict
 	dp := make([]bool, len(s)+1)
-	dp[len(s)] = true
+	dp[0] = true
 
-	for i := len(s) - 1; i >= 0; i-- {
+	for i := 0; i < len(s); i++ {
 		for _, word := range wordDict {
-			wordLen := len(word)
-			if i+wordLen > len(s) {
+			l := len(word)
+			if i+1 < l {
 				continue
 			}
-			if word == s[i:i+wordLen] && dp[i+wordLen] {
-				dp[i] = true
-				break
+			if s[i+1-l:i+1] == word && !dp[i+1] { // avoid to be overidden true value if it has.
+				dp[i+1] = dp[i+1-l]
 			}
 		}
 	}
-	return dp[0]
+	return dp[len(dp)-1]
 }
