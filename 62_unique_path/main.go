@@ -22,3 +22,21 @@ func uniquePaths(m int, n int) int {
 	}
 	return dp[m-1][n-1]
 }
+
+// TimeComplexity: O(n * m)
+// SpaceComplexity: O(n)
+func uniquePaths_space_optimized(m int, n int) int {
+	dp := make([]int, n)
+	for i, _ := range dp {
+		dp[i] = 1
+	}
+	for i := 1; i < m; i++ {
+		newDP := make([]int, n)
+		newDP[0] = 1
+		for j := 1; j < n; j++ {
+			newDP[j] = dp[j] + newDP[j-1]
+		}
+		dp = newDP
+	}
+	return dp[n-1]
+}
